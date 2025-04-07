@@ -365,142 +365,6 @@
         
             
                 
-
-                    
-                        <canvas id="mouseEffect" style="position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none;"></canvas>
-<script data-swup-reload-script>
-  (function() {
-    "use strict";
-    
-    // 初始化设置
-    var canvas = document.getElementById("mouseEffect");
-    var c = canvas.getContext("2d");
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    // 变量
-    var mouse = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2
-    };
-    
-    var colors = ["#00bdff", "#4d39ce", "#088eff"];
-    
-    // 事件监听
-    window.addEventListener("mousemove", function(event) {
-      mouse.x = event.clientX;
-      mouse.y = event.clientY;
-    });
-    
-    window.addEventListener("resize", function() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      init();
-    });
-    
-    // 工具函数
-    function randomIntFromRange(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-    
-    function randomColor(colors) {
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-    
-    // 粒子对象
-    function Particle(x, y, radius, color) {
-      var _this = this;
-      
-      var distance = randomIntFromRange(50, 120);
-      this.x = x;
-      this.y = y;
-      this.radius = radius;
-      this.color = color;
-      this.radians = Math.random() * Math.PI * 2;
-      this.velocity = 0.05;
-      this.distanceFromCenter = {
-        x: distance,
-        y: distance
-      };
-      this.prevDistanceFromCenter = {
-        x: distance,
-        y: distance
-      };
-      this.lastMouse = { x: x, y: y };
-      
-      this.update = function() {
-        var lastPoint = { x: _this.x, y: _this.y };
-        // 随时间移动点
-        _this.radians += _this.velocity;
-        
-        // 拖拽效果
-        _this.lastMouse.x += (mouse.x - _this.lastMouse.x) * 0.05;
-        _this.lastMouse.y += (mouse.y - _this.lastMouse.y) * 0.05;
-        
-        // 圆周运动
-        _this.distanceFromCenter.x =
-          _this.prevDistanceFromCenter.x + Math.sin(_this.radians) * 100;
-        _this.distanceFromCenter.y =
-          _this.prevDistanceFromCenter.x + Math.sin(_this.radians) * 100;
-        
-        _this.x =
-          _this.lastMouse.x +
-          Math.cos(_this.radians) * _this.distanceFromCenter.x;
-        _this.y =
-          _this.lastMouse.y +
-          Math.sin(_this.radians) * _this.distanceFromCenter.y;
-        
-        _this.draw(lastPoint);
-      };
-      
-      this.draw = function(lastPoint) {
-        c.beginPath();
-        c.strokeStyle = _this.color;
-        c.lineWidth = _this.radius;
-        c.moveTo(lastPoint.x, lastPoint.y);
-        c.lineTo(_this.x, _this.y);
-        c.stroke();
-        c.closePath();
-      };
-    }
-    
-    // 实现
-    var particles;
-    function init() {
-      particles = [];
-      
-      for (var i = 0; i < 50; i++) {
-        var radius = Math.random() * 2 + 1;
-        particles.push(
-          new Particle(
-            canvas.width / 2,
-            canvas.height / 2,
-            radius,
-            randomColor(colors)
-          )
-        );
-      }
-    }
-    
-    // 动画循环
-    function animate() {
-      requestAnimationFrame(animate);
-      c.fillStyle = "rgba(255, 255, 255, 0.05)";
-      c.fillRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(function(particle) {
-        particle.update();
-      });
-    }
-    
-    // 启动动画
-    init();
-    animate();
-  })();
-</script>
-
-                    
         
                 
         
@@ -677,7 +541,9 @@
 
 
 
+<script src="/js/layouts/mouse-effect.js"></script>
 	
+
 </body>
 
 </html>
