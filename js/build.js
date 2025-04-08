@@ -3,15 +3,14 @@ const fs = require("fs/promises");
 const path = require("path");
 const glob = require("glob-promise");
 
-const THEME_ROOT = path.join(__dirname, "../..");
-const SOURCE_DIR = path.join(THEME_ROOT, "source/js");
-const BUILD_DIR = path.join(THEME_ROOT, "source/js/build");
+const THEME_ROOT = path.join(__dirname, "../..").replace(/\\/g, "/");
+const SOURCE_DIR = path.join(THEME_ROOT, "source/js").replace(/\\/g, "/");
+const BUILD_DIR = path.join(THEME_ROOT, "source/js/build").replace(/\\/g, "/");
 const IGNORE_PATTERNS = [
-  path.join(SOURCE_DIR, "libs/**"),
-  path.join(BUILD_DIR, "**"),
-  path.join(SOURCE_DIR, "build.js"),
+  path.join(SOURCE_DIR, "libs/**").replace(/\\/g, "/"),
+  path.join(BUILD_DIR, "**").replace(/\\/g, "/"),
+  path.join(SOURCE_DIR, "build.js").replace(/\\/g, "/"),
 ];
-
 const minifyOptions = {
   compress: {
     dead_code: true,

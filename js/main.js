@@ -7,7 +7,7 @@ import initScrollTopBottom from "./tools/scrollTopBottom.js";
 import initLocalSearch from "./tools/localSearch.js";
 import initCopyCode from "./tools/codeBlock.js";
 import initBookmarkNav from "./layouts/bookmarkNav.js";
-
+import initMouseEffect from "./layouts/mouse-effect.js";
 export const main = {
   themeInfo: {
     theme: `Redefine v${theme.version}`,
@@ -49,6 +49,7 @@ export const main = {
     initModeToggle();
     initScrollTopBottom();
     initBookmarkNav();
+    initMouseEffect();
     
     if (
       theme.home_banner.subtitle.text.length !== 0 &&
